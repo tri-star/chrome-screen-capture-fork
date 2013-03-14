@@ -87,5 +87,15 @@
   "imgur_upload_header": {"message": "Imgur"},
   "share_to_imgur_account": {"message": "Share to your Imgur account"},
   "imgur_failed_to_get_request_token": {"message": "Get request token failed, please try again later."},
-  "imgur_failed_to_get_access_token": {"message": "Get access token failed, please try again later."}
+  "imgur_failed_to_get_access_token": {"message": "Get access token failed, please try again later."},
+   "autosave": {
+      "message": "Autosave - after capture, bypass editing screen and directly save the captured image to the default location with the web page title as default file name"
+   },
+   "autosave_clipboard": {
+      "message": "Autosave - after capture, bypass editing screen and directly save the captured image to the clip board"
+   },
+   "autosave_no": {
+      "message": "No autosave - capture, and then open editing screen(default)."
+   }
+
 }

@@ -24,13 +24,27 @@ function init() {
   i18nReplace('settingShortcutText', 'shortcutsetting_text');
   i18nReplace('defaultPath', 'save_tip');
   i18nReplace('autosaveText', 'autosave');
+  i18nReplace('autosaveClipboardText', 'autosave_clipboard');
+  i18nReplace('autosaveNoText', 'autosave_no');
   i18nReplace('setSavePath', 'set_save_path');
   i18nReplace('openSavePath', 'open_save_path');
   if (isHighVersion()) {
     $('lossyScreenShot').innerText += ' (JPEG)';
     $('losslessScreenShot').innerText += ' (PNG)';
   }
-  $('autosave').checked = eval(localStorage.autoSave);
+  
+  var saveStyleValue = eval(localStorage.saveStyle);
+  switch(saveStyleValue) {
+    case 1:
+      $('autosave_clipboard').checked = true;
+      break;
+    case 2:
+      $('autosave').checked = true;
+      break;
+    default:
+      $('autosave_no').checked = true;
+  }
+  
   $('filePath').value = localStorage.savePath =
       localStorage.savePath ?
           localStorage.savePath : bg.plugin.getDefaultSavePath();
@@ -55,7 +69,15 @@ function save() {
   localStorage.screenshootQuality =
       $('lossy').checked ? 'jpeg' : '' ||
       $('lossless').checked ? 'png' : '';
-  localStorage.autoSave = $('autosave').checked;
+  
+  var saveStyleValue = 0;
+  if($('autosave_clipboard').checked) {
+    saveStyleValue = 1;
+  }
+  if($('autosave').checked) {
+    saveStyleValue = 2;
+  }
+  localStorage.saveStyle = saveStyleValue;
 
   return HotKeySetting.save();
 }

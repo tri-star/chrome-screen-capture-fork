@@ -338,7 +338,19 @@ var screenshot = {
   */
   postImage: function() {
     // auto save picture
-    if (eval(localStorage.autoSave)) {
+    if (eval(localStorage.saveStyle) == 1) {
+      var data = screenshot.canvas.toDataURL('image/png');
+      chrome.tabs.getSelected(null, function(tab) {
+        if (plugin.saveToClipboard(data)) {
+          screenshot.captureStatus = true;
+        } else {
+          screenshot.captureStatus = false;
+        }
+      });
+      screenshot.showNotification();
+      return;
+    }
+    if (eval(localStorage.saveStyle) == 2) {
       var data = screenshot.canvas.toDataURL('image/png');
       chrome.tabs.getSelected(null, function(tab) {
         if (plugin.autoSave(data, tab.title, localStorage.savePath)) {
