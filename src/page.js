@@ -241,7 +241,7 @@ var page = {
   },
 
   getOriginalViewPortWidth: function() {
-    chrome.extension.sendRequest({ msg: 'original_view_port_width'},
+    chrome.extension.sendMessage({ msg: 'original_view_port_width'},
       function(originalViewPortWidth) {
         if (originalViewPortWidth) {
           page.originalViewPortWidth = page.hasScrollBar('y') ?
@@ -322,7 +322,7 @@ var page = {
   * Receive messages from background page, and then decide what to do next
   */
   addMessageListener: function() {
-    chrome.extension.onRequest.addListener(function(request, sender, response) {
+    chrome.extension.onMessage.addListener(function(request, sender, response) {
       if (page.isSelectionAreaTurnOn) {
         page.removeSelectionArea();
       }
@@ -353,7 +353,7 @@ var page = {
   * Send Message to background page
   */
   sendMessage: function(message) {
-    chrome.extension.sendRequest(message);
+    chrome.extension.sendMessage(message);
   },
 
   /**
@@ -860,9 +860,9 @@ var page = {
       return;
     }
     if (isPageCapturable()) {
-      chrome.extension.sendRequest({msg: 'page_capturable'});
+      chrome.extension.sendMessage({msg: 'page_capturable'});
     } else {
-      chrome.extension.sendRequest({msg: 'page_uncapturable'});
+      chrome.extension.sendMessage({msg: 'page_uncapturable'});
     }
     this.injectCssResource('style.css');
     this.addMessageListener();

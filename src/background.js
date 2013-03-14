@@ -90,7 +90,7 @@ var screenshot = {
   * Receive messages from content_script, and then decide what to do next
   */
   addMessageListener: function() {
-    chrome.extension.onRequest.addListener(function(request, sender, response) {
+    chrome.extension.onMessage.addListener(function(request, sender, response) {
       var obj = request;
       var hotKeyEnabled = HotKey.isEnabled();
       switch (obj.msg) {
@@ -127,7 +127,7 @@ var screenshot = {
   */
   sendMessage: function(message, callback) {
     chrome.tabs.getSelected(null, function(tab) {
-      chrome.tabs.sendRequest(tab.id, message, callback);
+      chrome.tabs.sendMessage(tab.id, message, callback);
     });
   },
 

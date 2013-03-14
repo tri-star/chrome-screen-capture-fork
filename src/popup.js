@@ -13,7 +13,7 @@ function isWindowsOrLinuxPlatform() {
 
 var isWindowsOrLinux = isWindowsOrLinuxPlatform();
 
-chrome.extension.onRequest.addListener(function(request, sender, response) {
+chrome.extension.onMessage.addListener(function(request, sender, response) {
   if (request.msg == 'page_capturable') {
     $('tip').style.display = 'none';
     $('captureSpecialPageItem').style.display = 'none';
@@ -115,7 +115,7 @@ function init() {
         $('captureScreenItem').style.display = 'block';
       showOption();
     }
-    chrome.tabs.sendRequest(tab.id, {msg: 'is_page_capturable'},
+    chrome.tabs.sendMessage(tab.id, {msg: 'is_page_capturable'},
       function(response) {
         isScriptLoad = true;
         if (response.msg == 'capturable') {
